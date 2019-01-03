@@ -1,0 +1,57 @@
+body{
+  font-family: 'Open Sans', sans-serif;
+  
+}
+
+h1{
+  font-size: 80px;
+  float: left;
+  /*color: #FFFFFF;*/
+  margin-top: 0;
+}
+
+li{
+  list-style-type: none;
+  display: inline-flex;
+}
+
+.main-container{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 
+}
+
+.top-section{
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  grid-template-areas: "header" "image-upload-section"
+}
+
+.header{
+  background-color: #3E2A35;
+
+}
+
+.header img{
+  height: 80px;
+  width: 80px;
+
+}
+
+.logo-section{
+
+}
+
+.search-bar{
+
+}
+
+.image-upload-section{
+  background-color: #3E2A35;
+
+
+}
+
+.bottom-section{
+  background-color: #C2B2B4;
+}
