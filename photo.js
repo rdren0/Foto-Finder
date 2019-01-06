@@ -14,13 +14,18 @@ class Photo{
   }
 
   deleteFromStorage(){
-
+    localStorage.removeItem(this.id);
   }
 
-  updatePhoto(){
-
-
+  updatePhoto(newValues, text) {
+    if (text === 'card-title') {
+      this.title = newValues;
+    }else if(text === 'card-caption') {
+      this.caption = newValues;
+    }else{
+    }
   }
+
 
   favoriteStatus(){
 
