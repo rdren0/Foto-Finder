@@ -1,6 +1,9 @@
-//append to dom multpiple times, maybe an issue with IDS//
-//when one of the multiple is deleted, all dups dissapear after refesh//
+
+//append to dom multiple times, maybe an issue with IDS//
+//when one of the multiples is deleted, all dups dissapear after refesh//
 // text editable not responding//
+//Dont forget favorite number button is backwards atm ///
+//cant vhange image on favorite button //
 
 
 
@@ -9,6 +12,7 @@ var create = document.querySelector('.add-image');
 var input = document.querySelector('#file');
 var photoGallery = document.querySelector('.image-card-area');
 var cardArea = document.querySelector('.image-card');
+var favoriteButton = document.getElementById('favorite-button');
 var imagesArray = JSON.parse(localStorage.getItem('photos')) || [];
 var favoriteImagesArray = [];
 var reader = new FileReader();
@@ -18,6 +22,7 @@ var reader = new FileReader();
 window.addEventListener('load', appendPhotos);
 create.addEventListener('click', createElement);
 cardArea.addEventListener('click', textEditable);
+// favoriteButton.addEventListener('click', changeFavoriteImage);
 
 
 
@@ -29,7 +34,8 @@ window.onload = function() {
     var newPhoto= new Photo(parseObj.id, parseObj.title, parseObj.file, parseObj.caption);
     imagesArray.push(newPhoto);
     newPhoto.saveToStorage();
-    appendPhotos(newPhoto); 
+    appendPhotos(newPhoto);
+    favoritePhotos();
   }
 }
 
@@ -68,12 +74,13 @@ function appendPhotos(e) {
       </section>
       <section id="bottom-area">
         <img onclick="deleteCard(${newPhoto.id})" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-        <img onclick="favoriteCard(${false})"src="images/favorite.svg">
+        <img id ='favorite-button' onclick ='changeFavoriteImage()' src="images/favorite.svg">
       </section>
     </article>`;
   })
 }
 
+// onclick="favoriteCard(${false})"
 /////
   
 function textEditable(event){
@@ -86,43 +93,44 @@ function textEditable(event){
 function editText(event){
   if (event.target.classList.contains('edit-text')) {
     event.target.contentEditable = true;
-    photoGallery.addEventListener('keypress', textEnter);
-    event.target.addEventListener('blur', textClick);
+    editTextListener(event);
  }
 }
 
 function textEnter(event) {
- if (event.code === 'Enter') {
+  if (event.code === 'Enter') {
     updateText();
     event.target.contentEditable = false;
-    photoGallery.removeEventListener('keypress', textEnter);
-    event.target.removeEventListener('blur', textClick);
+    editTextListener(event);
  }
 };
 
 function textClick(event) {
- updateText();
- event.target.contentEditable = false;
- photoGallery.removeEventListener('keypress', textEnter);
- event.target.removeEventListener('blur', textClick);
+  updateText();
+  event.target.contentEditable = false;
+  editTextListener(event);
 };
 
 function updateText() {
-   var index = findIdNumber(event.target.parentElement.dataset.id);
-   if (event.target.classList.contains('card-title')) {
-     array[index].updatePhoto(event.target.innerText, 'card-title');
+  var index = findIdNumber(event.target.parentElement.dataset.id);
+  if (event.target.classList.contains('card-title')) {
+    array[index].updatePhoto(event.target.innerText, 'card-title');
    }
-   else {
-     imagesArray[index].updatePhoto(event.target.innerText, 'card-caption');
+  else {
+    imagesArray[index].updatePhoto(event.target.innerText, 'card-caption');
    };
   imagesArray[index].saveToStorage();
   };
+
+  function editTextListener(event){
+    photoGallery.addEventListener('keypress', textEnter);
+    event.target.addEventListener('blur', textClick);
+  }
 
 /////
 
 
 function deleteCard (id) {
-  console.log(this);
   let element = document.querySelector(`[data-id="${id}"]`);
   element.remove();
   let deletePhoto = imagesArray.find(function(newPhoto) {
@@ -135,6 +143,36 @@ function deleteCard (id) {
   imagesArray.splice(deleteIndex, 1)
 }
 
+function favoritePhotos() {
+  var favoritePhoto = 0;
+  imagesArray.forEach(function(photo) {
+    if (photo.favorite === false) {
+      favoritePhoto++
+    };
+  });
+  document.querySelector('#favorite-counter').innerText = favoritePhoto;
+}
+
+
+function changeFavoriteImage() {
+  console.log("testing");
+  if (favoriteButton.src == "images/favorite.svg") 
+    {
+      favoriteButton.src.src = "images/favorite-active.svg";
+  }else if (favoriteButton.src.src === "images/favorite-active.svg"){
+    favoriteButton.src.src = "images/favorite.svg";
+  }
+}
+// function favoriteVote(event) {
+//   var index = findIndexNumber(event.target.parentElement.parentElement.dataset.id);
+//   if (event.target.classList.contains('favorite')) {
+//     favoriteUpdateCall(index);
+//     event.target.classList.remove('favorite');
+//   } else {
+//     favoriteUpdateCall(index);
+//     event.target.classList.add('favorite');
+//   };
+// }
 
 
 

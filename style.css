@@ -23,6 +23,12 @@ h1{
 
 h2{
   font-size: 20px;
+  
+}
+
+.h2-input{
+  color: #C2B2B4;
+  font-weight: 600;
 }
 
 h3{
@@ -102,20 +108,20 @@ justify-content: flex-end;
 .search-bar input{
   width: 640px;
   height: 50px;
-  border-radius: 12px 0px 0px 12px;
-  border: none;
+  border-radius: 10px 0px 0px 10px;
+  border: 2px solid #C2B2B4;
 
 }
 
 .search-bar button{
-  border-radius: 0px 12px 12px 0px;
+  border-radius: 0px 10px 10px 0px;
   margin-right: 10px;
   width: 60px;
   height: 50px;
   border: none;
-  background-color: darkgrey;
+  background-color: #C2B2B4;
   background-image: url("images/search-solid.svg");
-  background-size: cover;
+  background-size: 40px 40px;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -194,10 +200,7 @@ justify-content: flex-end;
   flex-direction: column;
 }
 
-.bottom-section{
-  /*min-height: 400px;*/
 
-}
 
 .image-card-area{
   display: flex;
@@ -262,6 +265,15 @@ justify-content: flex-end;
     grid-template-rows: 1fr 1fr;
   }
 
+  h1{
+    font-size: 90px;
+  }
+  .header img{
+  width: 120px;
+  margin: 0px 10px 0px 10px;
+  padding: 0;
+  }
+
   .top-section{
     grid-template-rows: 1fr;
   }
@@ -289,6 +301,16 @@ justify-content: flex-end;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
+
+  h1{
+    font-size: 63px;
+  }
+  .header img{
+  width: 83px;
+  margin: 0px 10px 0px 10px;
+  padding: 0;
+  }
+
   h2{
     font-size: 15px;
   }
@@ -309,8 +331,6 @@ justify-content: flex-end;
   .search-bar input{
   width: 440px;
   height: 50px;
-  border-radius: 12px 0px 0px 12px;
-  border: none;
 
   }
 
@@ -339,6 +359,10 @@ justify-content: flex-end;
   margin-bottom: 30px;
   margin-top: 30px;
   }
+  .image-card-area{
+    padding: 10px;
+    justify-content: center;  
+  }
 
 }
 
@@ -350,15 +374,15 @@ justify-content: flex-end;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
-  h1{ font-size: 40px
-
+  h1{
+    font-size: 50px;
   }
   .header img{
-  width: 50px;
+  width: 70px;
   margin: 0px 10px 0px 10px;
   padding: 0;
-
-}
+  }
+  
   h2{
     font-size: 12px;
   }
@@ -379,8 +403,6 @@ justify-content: flex-end;
   .search-bar input{
   width: 340px;
   height: 50px;
-  border-radius: 12px 0px 0px 12px;
-  border: none;
 
   }
 
@@ -424,7 +446,7 @@ justify-content: flex-end;
 
   }
   .header img{
-  width: 45px;
+  width: 55px;
   margin: 0px 10px 0px 10px;
   padding: 0;
 
@@ -449,14 +471,13 @@ justify-content: flex-end;
   .search-bar input{
   width: 240px;
   height: 40px;
-  border-radius: 12px 0px 0px 12px;
-  border: none;
 
   }
 
   .search-bar button{
     margin-right: 0px;
     height: 40px;
+    background-size: 30px 30px;
   }
 
   .image-upload-section-container{
@@ -487,6 +508,7 @@ justify-content: flex-end;
 
   .image-card-area{
     padding: 10px;
+    justify-content: center;  
   }
 
 }
