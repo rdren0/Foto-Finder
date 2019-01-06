@@ -209,8 +209,8 @@ justify-content: flex-end;
 .image-card{
   display: grid;
   grid-template-rows: 50px 300px 75px 50px;
-  width: 300px;
-  border: 1px solid #938284;
+  width: 304px;
+  border: 2px solid #938284;
   margin-top: 20px;
 }
 
