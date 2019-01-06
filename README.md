@@ -12,7 +12,7 @@ Here is the design we were asked to recreate:
 ![Foto-Finder](images/Desktop-Comp.png)
 ![Foto-Finder](images/Mobile-Comp.png)
 
-##My final Product
+## My final Product
 
 
 The responsive Site on GithubPages:
