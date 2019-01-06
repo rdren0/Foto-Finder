@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
   <title>FOTO FINDER</title>
+  <meta charset="utf-8"/>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet">
   <!-- <link rel="stylesheet" type="text/css" href="normalize.css"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="style.css" type="text/css" rel="stylesheet">
+
 </head>
 <body>
   <section class="top-section">
@@ -16,22 +18,23 @@
             <h1> FINDER</h1>
       </article>
       <article class="search-bar">
-        <input type="text" name="search-bar-input"><button>search</button>
+        <input type="text" name="search-bar-input"><button></button>
       </article>
     </article>
     <article class="image-upload-section image-upload-section-container">
       <article> 
       </article>
       <article class="image-section-content">
-        <h3>Title</h3>
-        <input type="text" name="title">
-        <h3>Caption</h3>
-        <input type="text" name="caption">
-        <button><h2>CHOOSE FILE</h2></button>
-        <br>
+        <form >
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+        <label for="caption">Caption</label>
+        <input type="text" name="caption" id="caption">
+        <label  class= "image-input-label" for="file"><h2>CHOOSE FILE</h2></label>
+        <input id="file" class="image-input" type="file" name="images"accept="image/*" >
         <article class= "side-by-side-container">
-        <button id="side-by-side-button"><h2>VIEW <span>X</span> FAVORITE</h2></button>
-        <button id="side-by-side-button"><h2>ADD TO ALBUM</h2></button>
+        <button id="side-by-side-button"><h2>VIEW <span id="js-favorite-counter">${counter}</span> FAVORITE</h2></button>
+        <button id="side-by-side-button" class="add-image"><h2>ADD TO ALBUM</h2></button>
         </article>
       </article>
       <article>
@@ -40,21 +43,6 @@
   </section>
   <section class="bottom-section">
     <article class="image-card-area">
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
 
       <article class="image-card">
         <section id="title-area">
@@ -72,138 +60,13 @@
         </section>
       </article>
 
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
-
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
-
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
-
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
-
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
-
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
-
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
-
-      <article class="image-card">
-        <section id="title-area">
-           <h4>WATERFALL</h4>
-        </section>
-        <section id="image-area">
-          <img src="images/dog.jpg">
-        </section>
-        <section id="caption-area">
-          <h4>Blah blah blah</h4>
-        </section>
-        <section id="bottom-area">
-          <img src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
-        </section>
-      </article>
     </article>
 
   </section>
   
 </body>
+<script src='photo.js'></script>
+<script src='main.js'></script>
 </html>
 
 

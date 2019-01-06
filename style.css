@@ -41,6 +41,10 @@ input[type="text"] {
     color: black;
 }
 
+p{
+  color: #3E2A35;
+}
+
 
 
 .main-container{
@@ -91,6 +95,10 @@ align-items: center;
 justify-content: flex-end;
 }
 
+.search-bar img{
+  height: 40px;
+}
+
 .search-bar input{
   width: 640px;
   height: 50px;
@@ -106,6 +114,10 @@ justify-content: flex-end;
   height: 50px;
   border: none;
   background-color: darkgrey;
+  background-image: url("images/search-solid.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .image-upload-section{
@@ -124,6 +136,27 @@ justify-content: flex-end;
   margin-bottom: 15px;
   display: block;
 }
+.image-input{
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 0.1px;
+  z-index: -1;
+}
+
+.image-input-label {
+  background-color: #5B4447;
+  border: none;
+  display: block;
+  height: 60px
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding: 1px;
+  text-align: center;
+  width: 100%;
+}'
+
 
 .image-upload-section button{
   width: 700px;
@@ -143,7 +176,9 @@ justify-content: flex-end;
   display: flex;
 }
 #side-by-side-button{
+  background-color: #5B4447;
   margin-top: 15px;
+  border: none;
   width: 43%;
   height: 60px;
 }
@@ -180,6 +215,16 @@ justify-content: flex-end;
 }
 
 #image-area img{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.image-size{
+  height: 50px;
+
+}
+.photo{
   width: 100%;
   height: 100%;
   object-fit: cover;
