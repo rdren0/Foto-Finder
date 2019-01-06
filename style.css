@@ -168,7 +168,7 @@ justify-content: flex-end;
   margin-top: 30px;
 }
 
-.image-upload-section button:hover{
+.image-input-label:hover{
   background-color: #938284;
 }
 .side-by-side-container{
@@ -181,6 +181,10 @@ justify-content: flex-end;
   border: none;
   width: 43%;
   height: 60px;
+}
+
+#side-by-side-button:hover{
+    background-color: #938284;
 }
 
 .image-section-content{
