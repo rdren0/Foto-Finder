@@ -9,6 +9,7 @@ class Photo{
 
 
   saveToStorage(){
+    localStorage.setItem(this.id, JSON.stringify(this));
 
   }
 
