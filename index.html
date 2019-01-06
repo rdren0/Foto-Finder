@@ -25,7 +25,6 @@
       <article> 
       </article>
       <article class="image-section-content">
-        <form >
         <label for="title">Title</label>
         <input type="text" name="title" id="title">
         <label for="caption">Caption</label>
@@ -55,8 +54,8 @@
           <h4>Blah blah blah</h4>
         </section>
         <section id="bottom-area">
-          <img onclick="deleteCard(${newPhoto.id})" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-          <img src="images/favorite.svg">
+          <img class = "delete-button" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
+          <img class = "favorite-button" src="images/favorite.svg">
         </section>
       </article>
 
