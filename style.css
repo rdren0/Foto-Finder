@@ -41,6 +41,11 @@ h4{
  padding-left: 5px;
 }
 
+.image-card h4{
+  width:75%;
+}
+
+
 li{
   list-style-type: none;
   display: inline-flex;
@@ -66,6 +71,10 @@ p{
   display: grid;
   grid-template-rows: 1fr 5fr;
   grid-template-areas: "header" "image-upload-section"
+}
+
+span{
+  color: #e26d5a;
 }
 
 .header{
@@ -161,7 +170,7 @@ justify-content: flex-end;
   padding: 1px;
   text-align: center;
   width: 100%;
-}'
+}
 
 
 .image-upload-section button{
@@ -200,8 +209,6 @@ justify-content: flex-end;
   flex-direction: column;
 }
 
-
-
 .image-card-area{
   display: flex;
   justify-content: space-between;
@@ -231,11 +238,6 @@ justify-content: flex-end;
 .image-size{
   height: 50px;
 
-}
-.photo{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 #caption-area{
   background-color: #FFF;

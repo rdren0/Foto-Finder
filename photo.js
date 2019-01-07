@@ -8,8 +8,8 @@ class Photo{
   }
 
 
-  saveToStorage(){
-    localStorage.setItem(this.id, JSON.stringify(this));
+  saveToStorage(array){
+    localStorage.setItem('photoscard', JSON.stringify(array));
 
   }
 
@@ -26,6 +26,9 @@ class Photo{
     }
   }
 
+  ///this['title']
+  // this['caption']
+// updatePhoto(asdasdasas, 'title')
 
   favoriteStatus(){
 
