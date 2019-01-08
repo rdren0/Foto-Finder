@@ -4,7 +4,7 @@ class Photo{
     this.title = title;
     this.file = file;
     this.caption = caption;
-    this.favorite = favorite || false;
+    this.favorite = favorite || 0;
   }
 
 
@@ -27,8 +27,12 @@ class Photo{
   }
 
 
-  favoriteStatus(){
-
+  favoriteStatus(obj){
+    if(this.favorite === 0){
+      this.favorite++;
+    }else if(this.favorite === 1 ){
+    this.favorite --;
+    }
   }
 
 
