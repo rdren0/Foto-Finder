@@ -7,10 +7,8 @@ class Photo{
     this.favorite = favorite || 0;
   }
 
-
   saveToStorage(){
     localStorage.setItem(this.id, JSON.stringify(this));
-
   }
 
   deleteFromStorage(){
@@ -26,14 +24,15 @@ class Photo{
     }
   }
 
-
   favoriteStatus(obj){
-    if(this.favorite === 0){
-      this.favorite++;
-    }else if(this.favorite === 1 ){
-    this.favorite --;
+    if(obj === 0){
+      obj++;
+      console.log(obj);
+      this.favorite = 1;
+    }else if(obj === 1 ){
+      obj--;
+      this.favorite = 0;
     }
-  }
-
+  } 
 
 }

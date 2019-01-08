@@ -4,12 +4,15 @@
 // change favorite status
 // change photo
 
+
+// ------------Global Var List------------
 var create = document.querySelector('.add-image');
 var input = document.querySelector('#file');
 var photoGallery = document.querySelector('.image-card-area');
 var searchInput = document.querySelector('.h2-input');
 var addPhotoInputs1 = document.querySelector('.add-photo-inputs1');
 var addPhotoInputs2 = document.querySelector('.add-photo-inputs2');
+var addPhotoInputs3 = document.querySelector('.image-input');
 var cardArea = document.querySelector('.image-card');
 var favoriteButton = document.querySelector('.testing-button');
 var imagesArray = JSON.parse(localStorage.getItem('photos')) || [];
@@ -17,15 +20,26 @@ var favoriteArray = ['images/favorite.svg', 'images/favorite-active.svg'];
 var reader = new FileReader();
 
 
-// Event Listeners //
+
+
+
+
+
+
+
+
+
+// ------------Event Listeners------------
 create.addEventListener('click', createElement);
 searchInput.addEventListener('keyup', searchPhotos);
 photoGallery.addEventListener('focusin', wheresTheCursor);
+// addPhotoInputs1.addEventListener('keyup',disableCreateButton);
+// addPhotoInputs2.addEventListener('keyup',disableCreateButton);
+// addPhotoInputs3.addEventListener('change',disableCreateButton);
 // favoriteButton.addEventListener('click', changeFavoriteImage);
 
 
-
-//Functions //
+// ------------Functions------------
 window.onload = function() {
   var keys = Object.keys(localStorage);
   for (var i = 0; i < keys.length; i++) {
@@ -38,6 +52,13 @@ window.onload = function() {
   }
 }
 
+// function disableCreateButton(){
+//   if(addPhotoInputs1.value.length >0 && addPhotoInputs2.value.length >0 && addPhotoInputs3.files.length ===1){
+//   create.disabled=false;
+//   }else{
+//     create.disabled=true;
+//   }
+// }
 
 function createElement(event) {
   event.preventDefault();
@@ -55,7 +76,6 @@ function createCard(e) {
   imagesArray.push(newPhoto);
   newPhoto.saveToStorage();
   appendPhotos(newPhoto);
-  
 }
 
 function appendPhotos(newPhoto) {
@@ -72,12 +92,11 @@ function appendPhotos(newPhoto) {
       </section>
       <section id="bottom-area">
         <img class = "delete-button" onclick="deleteCard(${newPhoto.id})" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-        <section class ="favorite-area"><img id="favorite-button" class ="testing-button" src="${favoriteArray[newPhoto.favorite]}"></section>
+        <section class="favorite-area"><img id="favorite-button" onclick="favoriteStatus(${newPhoto.id})" "class="testing-button" src="${favoriteArray[newPhoto.favorite]}"></section>
       </section>
     </article>`;
     photoGallery.insertAdjacentHTML('afterbegin',newCard);
     clearPhotoAddInputs();
-
   }
 
 function wheresTheCursor(event){
@@ -106,9 +125,7 @@ function searchPhotos (event) {
 function clearPhotoAddInputs() {
   addPhotoInputs1.value = '';
   addPhotoInputs2.value = '';
-
 }
-
 
 function updateText(event) {
   var number = event.target.closest('.image-card').dataset.id;
@@ -137,6 +154,7 @@ function deleteCard (id) {
   imagesArray.splice(deleteIndex, 1)
 }
 
+
 function favoritePhotos() {
   var favoritePhoto = 0;
   imagesArray.forEach(function(photo) {
@@ -147,66 +165,26 @@ function favoritePhotos() {
   document.querySelector('#favorite-counter').innerText = favoritePhoto;
 }
 
-
-function changeFavoriteImage(object) {
-  favoriteSatus(object);
+function favoriteStatus(currentPhoto) {
+  console.log(currentPhoto);
+  var currentPhotoId = imagesArray.filter(function(image){
+    return image.id === currentPhoto;
+  }) 
+  var curPhoto = currentPhotoId[0]
+  var newPhoto = new Photo(curPhoto.id, curPhoto.title, curPhoto.file, curPhoto.caption, curPhoto.favorite );
+  newPhoto.favoriteStatus(curPhoto.favorite);
+  newPhoto.saveToStorage();
 }
 
-// cardArea.addEventListener('click', function(event) {
-//   if (event.target.classList.contains('up-button')) {
-//     vote(event, 'up');
-//   } else if (event.target.classList.contains('down-button')) {
-//     vote(event, 'down')
-//   }
-// });
-
-// function showQuality (qualities) {
-//   console.log(qualities + " this is the button clicked");
-//   var thisQualityButton = qualities;
-
-//   var qualityIdeas = ideasArray.filter(function(obj) {
-//     // console.log()
-//     var qualityText = qualityArray[obj.quality];
-//     return qualityText.includes(thisQualityButton);
-//   });
-//   cardArea.innerHTML = "";
-//   qualityIdeas.forEach(function(obj) {
-//     appendCard(obj)
-//   })
-
-// function findIdNumber(objId) {
-//   for (var i = 0; i < ideasArray.length; i++) {
-//     if (parseInt(ideasArray[i].id) === parseInt(objId)) {
-//       console.log(i)
-//       return i
-//     }
-//   }
-// };
-/////////////////////////////////////////
 
 
 // function vote(event, votebutton) {
-//   var index = findIdNumber(event.target.closest('.idea-cards').dataset.id);
-//   if (votebutton === 'up') {
-//     ideasArray[index].updateQuality('up');
-//     event.target.nextElementSibling.innerText = qualityArray[ideasArray[index].quality];   
-//     console.log(qualityArray[ideasArray[index].quality]);
-//   } else if (votebutton === 'down') {
-//     console.log(qualityArray[ideasArray[index].quality])
-//     ideasArray[index].updateQuality('down');
-//     event.target.nextElementSibling.nextElementSibling.innerText = qualityArray[ideasArray[index].quality];
-//   }
-//   ideasArray[index].saveToStorage();
-//   ideasArray.splice(index, 1, ideasArray[index]);
-// };
+//   var index = findIdNumber(event.target.closest('.testing-button').dataset.id);
+//   
 
 // function favoriteVote(event) {
 //   var index = findIndexNumber(event.target.parentElement.parentElement.dataset.id);
 //   if (event.target.classList.contains('favorite')) {
-//     favoriteUpdateCall(index);
-//     event.target.classList.remove('favorite');
-//   } else {
-//     favoriteUpdateCall(index);
-//     event.target.classList.add('favorite');
-//   };
+//     favoriteStatus(index);
+//   
 // }
