@@ -4,12 +4,12 @@ class Photo{
     this.title = title;
     this.file = file;
     this.caption = caption;
-    this.favorite = favorite || false;
+    this.favorite = favorite || 0;
   }
 
 
-  saveToStorage(array){
-    localStorage.setItem('photoscard', JSON.stringify(array));
+  saveToStorage(){
+    localStorage.setItem(this.id, JSON.stringify(this));
 
   }
 
@@ -26,23 +26,14 @@ class Photo{
     }
   }
 
-  ///this['title']
-  // this['caption']
-// updatePhoto(asdasdasas, 'title')
 
-  favoriteStatus(){
-
+  favoriteStatus(obj){
+    if(this.favorite === 0){
+      this.favorite++;
+    }else if(this.favorite === 1 ){
+    this.favorite --;
+    }
   }
 
 
 }
-
-
-
-
-
-
-
-
-
-    
