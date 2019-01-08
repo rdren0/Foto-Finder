@@ -8,17 +8,18 @@ var create = document.querySelector('.add-image');
 var input = document.querySelector('#file');
 var photoGallery = document.querySelector('.image-card-area');
 var cardArea = document.querySelector('.image-card');
-var favoriteButton = document.querySelector('#favorite-button');
+var favoriteArea = document.querySelector('.favorite-area')
+var favoriteArray = ['images/favorite.svg', 'images/favorite-active.svg'];
 var imagesArray = [];
-var favoriteImagesArray = [];
 var reader = new FileReader();
+// var favoriteImagesArray = [];
 
 
 // Event Listeners //
 create.addEventListener('click', createElement);
-// favoriteButton.addEventListener('click', changeFavoriteImage);
 photoGallery.addEventListener('keyup', textEditable);
-
+// favoriteButton.addEventListener('click', changeFavoriteImage);
+favoriteArea.addEventListener('click', favoriteVote);
 
 
 //Functions //
@@ -41,11 +42,17 @@ function createElement(event) {
   }
 }
 
+function favoriteVote(element){
+var favorite = element.target.closest('.testing-button').index;
+console.log(favorite);
+favoriteStatus(favorite);
+}
+
 function createCard(e) {
   e.preventDefault();
   var titleInput = document.querySelector('#title');
   var bodyInput = document.querySelector('#caption');
-  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value);
+  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value, false);
   imagesArray.push(newPhoto);
   newPhoto.saveToStorage(imagesArray);
   appendPhotos(newPhoto);
@@ -66,7 +73,7 @@ function appendPhotos(newPhoto) {
       </section>
       <section id="bottom-area">
         <img onclick="deleteCard(${newPhoto.id})" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-        <img id ='favorite-button' onclick ='changeFavoriteImage()' src="images/favorite.svg">
+        <section class ="favorite-area"><img id="favorite-button" class ="testing-button" src="${favoriteArray[newPhoto.favorite]}"></section>
       </section>
     </article>`;
   }
@@ -74,7 +81,7 @@ function appendPhotos(newPhoto) {
 function favoritePhotos() {
   var favoritePhoto = 0;
   imagesArray.forEach(function(photo) {
-    if (photo.favorite === false) {
+    if (photo.favorite === 0) {
       favoritePhoto++
     };
   });
@@ -82,34 +89,18 @@ function favoritePhotos() {
 }
 
 function deleteCard (id) {
-  let element = document.querySelector(`[data-id="${id}"]`);
-  element.remove();
-  let deletePhoto = imagesArray.find(function(newPhoto) {
+  var element = document.querySelector(`[data-id="${id}"]`);
+  element.remove();    
+  var deletePhoto = imagesArray.find( newPhoto => {  
     return id === newPhoto.id;
-  });
-  deletePhoto.deleteFromStorage();
-  let deleteIndex = imagesArray.findIndex(function(newPhoto) {
-    return id === newPhoto.id;
-  });
-  imagesArray.splice(deleteIndex, 1)
-}
-
-// function changeFavoriteImage() {
-//   console.log("testing");
-//   if (favoriteButton.src == "images/favorite.svg") 
-//     {
-//       favoriteButton.src.src = "images/favorite-active.svg";
-//   }else if (favoriteButton.src.src === "images/favorite-active.svg"){
-//     favoriteButton.src.src = "images/favorite.svg";
-//   }
-// }
-  
-function textEditable(event){
-  console.log(event.target);
-  if (event.target.classList.contains("card-title" || "card-caption")) {
-    photoGallery.addEventListener('keypress', textEnter);
-    event.target.addEventListener('focusout', textClick);
+  }); 
+  deletePhoto = new Photo (deletePhoto.id, deletePhoto.title, deletePhoto.file, deletePhoto.caption, deletePhoto.favorite);
+  deletePhoto.deleteFromStorage(imagesArray, deletePhoto.id);
   }
+
+function textEditable(event){
+  photoGallery.addEventListener('keypress', textEnter);
+  event.target.addEventListener('focusout', textClick);
 }
 
 
@@ -124,38 +115,50 @@ function textClick(event) {
 };
 
 function editTextListener(event){
+    console.log("hello");
     updateText();
     photoGallery.removeEventListener('keypress', textEnter);
     event.target.removeEventListener('focusout', textClick);
     event.target.contentEditable = false;
   }
 
-function updateText() {
+function findIndex (number) {
+  for(var i = 0; i < number.length; i++) {
+    if(number == imagesArray[i].id) 
+      return imagesArray[i];
+  }
+}
+  function updateText(element) {
   console.log('made it!');
-  var index = findIdNumber(event.target.parentElement.dataset.id);
+  var number = element.target.parentElement.dataset.id;
+  var index = findIndex(number);
   if (event.target.classList.contains('card-title')) {
-    array[index].updatePhoto(event.target.innerText, 'card-title');
-   }
-  else {
-    imagesArray[index].updatePhoto(event.target.innerText, 'card-caption');
+    index.updatePhoto(event.target.innerText, 'card-title');
+    console.log('pie')
+  }else {
+    index.updatePhoto(event.target.innerText, 'card-caption');
    };
-  imagesArray[index].saveToStorage(imagesArray);
+  index.saveToStorage(imagesArray);
   };
+
+
+// function showQuality (qualities) {
+//   console.log(qualities + " this is the button clicked");
+//   var thisQualityButton = qualities;
+
+//   var qualityIdeas = ideasArray.filter(function(obj) {
+//     // console.log()
+//     var qualityText = qualityArray[obj.quality];
+//     return qualityText.includes(thisQualityButton);
+//   });
+//   cardArea.innerHTML = "";
+//   qualityIdeas.forEach(function(obj) {
+//     appendCard(obj)
+//   });
 
   
 
 
-
-// function favoriteVote(event) {
-//   var index = findIndexNumber(event.target.parentElement.parentElement.dataset.id);
-//   if (event.target.classList.contains('favorite')) {
-//     changeFavoriteImage(index);
-//     event.target.classList.remove('favorite');
-//   } else {
-//     changeFavoriteImage(index);
-//     event.target.classList.add('favorite');
-//   };
-// }
 
 
 
