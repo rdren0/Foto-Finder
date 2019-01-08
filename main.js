@@ -1,6 +1,9 @@
+//append to dom multiple times, maybe an issue with IDS//
+//when one of the multiples is deleted, all dups dissapear after refesh//
+// text editable not responding//
+//Dont forget favorite number button is backwards atm ///
+//cant vhange image on favorite button //
 
-//Text editable not responding//
-//cant change image on favorite button //
 
 
 
@@ -8,29 +11,29 @@ var create = document.querySelector('.add-image');
 var input = document.querySelector('#file');
 var photoGallery = document.querySelector('.image-card-area');
 var cardArea = document.querySelector('.image-card');
-var favoriteArea = document.querySelector('.favorite-area')
-var favoriteArray = ['images/favorite.svg', 'images/favorite-active.svg'];
-var imagesArray = [];
+var favoriteButton = document.getElementById('favorite-button');
+var imagesArray = JSON.parse(localStorage.getItem('photos')) || [];
+var favoriteImagesArray = [];
 var reader = new FileReader();
-// var favoriteImagesArray = [];
 
 
 // Event Listeners //
 create.addEventListener('click', createElement);
-photoGallery.addEventListener('keyup', textEditable);
+// cardArea.addEventListener('click', textEditable);
 // favoriteButton.addEventListener('click', changeFavoriteImage);
-favoriteArea.addEventListener('click', favoriteVote);
+
 
 
 //Functions //
 window.onload = function() {
-  if(localStorage.hasOwnProperty('photoscard')){
-  var parseObj = JSON.parse(localStorage.getItem('photoscard'));
-  imagesArray = parseObj;
-  for (var i = 0; i < imagesArray.length; i++) {
-    appendPhotos(imagesArray[i]);
+  var keys = Object.keys(localStorage);
+  for (var i = 0; i < keys.length; i++) {
+    var parseObj = JSON.parse(localStorage.getItem(keys[i]));
+    var newPhoto= new Photo(parseObj.id, parseObj.title, parseObj.file, parseObj.caption);
+    imagesArray.push(newPhoto);
+    newPhoto.saveToStorage();
+    appendPhotos(newPhoto);
     favoritePhotos();
-    }
   }
 }
 
@@ -42,19 +45,13 @@ function createElement(event) {
   }
 }
 
-function favoriteVote(element){
-var favorite = element.target.closest('.testing-button').index;
-console.log(favorite);
-favoriteStatus(favorite);
-}
-
 function createCard(e) {
   e.preventDefault();
   var titleInput = document.querySelector('#title');
   var bodyInput = document.querySelector('#caption');
-  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value, false);
+  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value);
   imagesArray.push(newPhoto);
-  newPhoto.saveToStorage(imagesArray);
+  newPhoto.saveToStorage();
   appendPhotos(newPhoto);
   
 }
@@ -63,104 +60,111 @@ function appendPhotos(newPhoto) {
   photoGallery.innerHTML +=
     `<article class="image-card" data-id="${newPhoto.id}">
       <section id="title-area">
-        <h4 class="card-title edit-text"contentEditable = "true">${newPhoto.title}</h4>
+        <h4 class="card-title edit-text"contentEditable = "false">${newPhoto.title}</h4>
       </section>
       <section id="image-area">
         <img class= "image-size" src="${newPhoto.file}">
       </section>
       <section id="caption-area">
-        <h4 class="card-caption edit-text"contentEditable = "true">${newPhoto.caption}</h4>
+        <h4 class="card-caption edit-text"contentEditable = "false">${newPhoto.caption}</h4>
       </section>
       <section id="bottom-area">
         <img onclick="deleteCard(${newPhoto.id})" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-        <section class ="favorite-area"><img id="favorite-button" class ="testing-button" src="${favoriteArray[newPhoto.favorite]}"></section>
+        <img id ='favorite-button' onclick ='changeFavoriteImage()' src="images/favorite.svg">
       </section>
     </article>`;
   }
 
+// onclick="favoriteCard(${false})"
+/////
+  
+// function textEditable(event){
+//   console.log(this);
+//   if (event.target.classList.contains("card-title" || "card-caption")) {
+//     editText(event);
+//   }
+// }
+
+// function editText(event){
+//   if (event.target.classList.contains('edit-text')) {
+//     event.target.contentEditable = true;
+//     editTextListener(event);
+//  }
+// }
+
+// function textEnter(event) {
+//   if (event.code === 'Enter') {
+//     updateText();
+//     event.target.contentEditable = false;
+//     editTextListener(event);
+//  }
+// };
+
+// function textClick(event) {
+//   updateText();
+//   event.target.contentEditable = false;
+//   editTextListener(event);
+// };
+
+// function updateText() {
+//   var index = findIdNumber(event.target.parentElement.dataset.id);
+//   if (event.target.classList.contains('card-title')) {
+//     array[index].updatePhoto(event.target.innerText, 'card-title');
+//    }
+//   else {
+//     imagesArray[index].updatePhoto(event.target.innerText, 'card-caption');
+//    };
+//   imagesArray[index].saveToStorage();
+//   };
+
+//   function editTextListener(event){
+//     photoGallery.addEventListener('keypress', textEnter);
+//     event.target.addEventListener('focusout', textClick);
+//   }
+
+/////
+
+
+function deleteCard (id) {
+  let element = document.querySelector(`[data-id="${id}"]`);
+  element.remove();
+  let deletePhoto = imagesArray.find(function(newPhoto) {
+    return id === newPhoto.id;
+  });
+  deletePhoto.deleteFromStorage();
+  let deleteIndex = imagesArray.findIndex(function(newPhoto) {
+    return id === newPhoto.id;
+  });
+  imagesArray.splice(deleteIndex, 1)
+}
+
 function favoritePhotos() {
   var favoritePhoto = 0;
   imagesArray.forEach(function(photo) {
-    if (photo.favorite === 0) {
+    if (photo.favorite === false) {
       favoritePhoto++
     };
   });
   document.querySelector('#favorite-counter').innerText = favoritePhoto;
 }
 
-function deleteCard (id) {
-  var element = document.querySelector(`[data-id="${id}"]`);
-  element.remove();    
-  var deletePhoto = imagesArray.find( newPhoto => {  
-    return id === newPhoto.id;
-  }); 
-  deletePhoto = new Photo (deletePhoto.id, deletePhoto.title, deletePhoto.file, deletePhoto.caption, deletePhoto.favorite);
-  deletePhoto.deleteFromStorage(imagesArray, deletePhoto.id);
-  }
 
-function textEditable(event){
-  photoGallery.addEventListener('keypress', textEnter);
-  event.target.addEventListener('focusout', textClick);
-}
-
-
-function textEnter(event) {
-  if (event.code === 13) {
-    editTextListener(event);
- }
-};
-
-function textClick(event) {
-  editTextListener(event);
-};
-
-function editTextListener(event){
-    console.log("hello");
-    updateText();
-    photoGallery.removeEventListener('keypress', textEnter);
-    event.target.removeEventListener('focusout', textClick);
-    event.target.contentEditable = false;
-  }
-
-function findIndex (number) {
-  for(var i = 0; i < number.length; i++) {
-    if(number == imagesArray[i].id) 
-      return imagesArray[i];
+function changeFavoriteImage() {
+  console.log("testing");
+  if (favoriteButton.src == "images/favorite.svg") 
+    {
+      favoriteButton.src.src = "images/favorite-active.svg";
+  }else if (favoriteButton.src.src === "images/favorite-active.svg"){
+    favoriteButton.src.src = "images/favorite.svg";
   }
 }
-  function updateText(element) {
-  console.log('made it!');
-  var number = element.target.parentElement.dataset.id;
-  var index = findIndex(number);
-  if (event.target.classList.contains('card-title')) {
-    index.updatePhoto(event.target.innerText, 'card-title');
-    console.log('pie')
-  }else {
-    index.updatePhoto(event.target.innerText, 'card-caption');
-   };
-  index.saveToStorage(imagesArray);
-  };
-
-
-// function showQuality (qualities) {
-//   console.log(qualities + " this is the button clicked");
-//   var thisQualityButton = qualities;
-
-//   var qualityIdeas = ideasArray.filter(function(obj) {
-//     // console.log()
-//     var qualityText = qualityArray[obj.quality];
-//     return qualityText.includes(thisQualityButton);
-//   });
-//   cardArea.innerHTML = "";
-//   qualityIdeas.forEach(function(obj) {
-//     appendCard(obj)
-//   });
-
-  
-
-
-
-
-
-   
-    
+// function favoriteVote(event) {
+//   var index = findIndexNumber(event.target.parentElement.parentElement.dataset.id);
+//   if (event.target.classList.contains('favorite')) {
+//     favoriteUpdateCall(index);
+//     event.target.classList.remove('favorite');
+//   } else {
+//     favoriteUpdateCall(index);
+//     event.target.classList.add('favorite');
+//   };
+// }

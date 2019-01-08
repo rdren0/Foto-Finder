@@ -4,21 +4,17 @@ class Photo{
     this.title = title;
     this.file = file;
     this.caption = caption;
-    this.favorite = favorite || 0;
+    this.favorite = favorite || false;
   }
 
 
-  saveToStorage(array){
-    localStorage.setItem('photoscard', JSON.stringify(array));
+  saveToStorage(){
+    localStorage.setItem(this.id, JSON.stringify(this));
 
   }
 
-  deleteFromStorage(photos, id){
-    var index = photos.findIndex(function(photo){
-      return id === photo.id
-    });
-    photos.splice(index,1);
-    this.saveToStorage(photos);
+  deleteFromStorage(){
+    localStorage.removeItem(this.id);
   }
 
   updatePhoto(newValues, text) {
@@ -26,26 +22,14 @@ class Photo{
       this.title = newValues;
     }else if(text === 'card-caption') {
       this.caption = newValues;
+    }else{
     }
   }
 
-  ///this['title']
-  // this['caption']
-// updatePhoto(asdasdasas, 'title')
 
   favoriteStatus(){
-    if(this.favorite === 0){
-      this.favorite++;
-    }else if(this.favorite === 1 ){
-    this.favorite --;
-    }
+
   }
+
+
 }
-
-
-
-
-
-
-
-    
