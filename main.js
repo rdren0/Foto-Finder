@@ -4,16 +4,12 @@
 // change favorite status
 // change photo
 
-
-
-
 var create = document.querySelector('.add-image');
 var input = document.querySelector('#file');
 var photoGallery = document.querySelector('.image-card-area');
 var searchInput = document.querySelector('.h2-input');
 var addPhotoInputs1 = document.querySelector('.add-photo-inputs1');
 var addPhotoInputs2 = document.querySelector('.add-photo-inputs2');
-
 var cardArea = document.querySelector('.image-card');
 var favoriteButton = document.querySelector('.testing-button');
 var imagesArray = JSON.parse(localStorage.getItem('photos')) || [];
@@ -63,7 +59,7 @@ function createCard(e) {
 }
 
 function appendPhotos(newPhoto) {
-  photoGallery.innerHTML +=
+  var newCard =
     `<article class="image-card" data-id="${newPhoto.id}">
       <section id="title-area">
         <h4 class="card-title edit-text"contentEditable = "true">${newPhoto.title}</h4>
@@ -79,6 +75,7 @@ function appendPhotos(newPhoto) {
         <section class ="favorite-area"><img id="favorite-button" class ="testing-button" src="${favoriteArray[newPhoto.favorite]}"></section>
       </section>
     </article>`;
+    photoGallery.insertAdjacentHTML('afterbegin',newCard);
     clearPhotoAddInputs();
 
   }
