@@ -4,7 +4,7 @@ class Photo{
     this.title = title;
     this.file = file;
     this.caption = caption;
-    this.favorite = favorite || 1;
+    this.favorite = favorite;
   }
 
   saveToStorage(){
@@ -24,15 +24,26 @@ class Photo{
     }
   }
 
-  favoriteStatus(obj){
-    if(obj === 0){
-      obj++;
-      this.favorite = 1;
-    }else if(obj === 1 ){
-      obj--;
-      this.favorite = 0;
-    }
-    this.saveToStorage();
-  }  
-
+  favoriteStatus(value){
+    this.favorite = value;
+    this.saveToStorage(imagesArray);
+  }
 }
+
+
+// document.querySelector(".favorite-button").addEventListener("click", showFavorite)
+// function showFavorite(e) {
+//   e.preventDefault()
+//   console.log("its passing the first")
+//   var  favoritecheck = document.querySelectorAll("img")
+//   favoritecheck.forEach(function(check){
+//     if(check.src === "icons/favorite-active.svg"){
+//       console.log("this is true")
+//       check.parentElement.style.display = "grid";
+//     }else {
+//       console.log("this is false")
+//       check.parentElement.style.display = "none";
+//     }
+//   })
+
+// }
