@@ -1,18 +1,18 @@
 
 *{
-  color: #FFF;
   box-sizing: border-box;
+  color: #FFF;
 }
 
 .favorite-button-false {
+  background-color: #5B4447;
   background-image: url(images/favorite.svg);
   background-repeat: no-repeat;
-  height: 30px;
-  width: 35px;
   background-size: 30px;
   border: 0;
-  background-color: #5B4447;
+  height: 30px;
   margin: 10px 5px;
+  width: 35px;
 }
 
 .favorite-button-true {
@@ -20,19 +20,17 @@
 }
 
 
-
-
 body{
-  font-family: 'Open Sans', sans-serif;
-  width: 100%;
-  height: 100%;
   background-color: #C2B2B4;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
   margin: 0px;
+  width: 100%;
 }
 
 h1{
-  font-size: 60px;
   float: left;
+  font-size: 60px;
   margin: 0;
   padding: 0;
 }
@@ -58,8 +56,8 @@ h4{
 }
 
 #no-photo-text{
-  text-align: center;
   font-size: 60px;
+  text-align: center;
 }
 
 .image-card h4{
@@ -67,8 +65,8 @@ h4{
 }
 
 li{
-  list-style-type: none;
   display: inline-flex;
+  list-style-type: none;
 }
 input[type="text"] {
     color: black;
@@ -89,10 +87,10 @@ p{
 }
 
 .top-section{
-  max-height: 1200px;
   display: grid;
-  grid-template-rows: 1fr 5fr;
   grid-template-areas: "header" "image-upload-section"
+  grid-template-rows: 1fr 5fr;
+  max-height: 1200px;
 }
 
 span{
@@ -104,29 +102,29 @@ span{
 }
 
 .header-container{
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "logo-section search-bar";
   display: grid;
+  grid-template-areas: "logo-section search-bar";
+  grid-template-columns: 1fr 1fr;
 }
 
 .header img{
-  width: 70px;
   margin: 0px 10px 0px 10px;
   padding: 0;
+  width: 70px;
 }
 
 .logo-section{
-grid-area: logo-section;
-display: flex;
 align-items: baseline;
+display: flex;
+grid-area: logo-section;
 margin: 10px 10px 20px 10px;
 }
 
 .search-bar{
-grid-area: search-bar;
+align-items: center;
 display: flex;
 flex-direction: row;
-align-items: center;
+grid-area: search-bar;
 justify-content: flex-end;
 }
 
@@ -142,16 +140,16 @@ justify-content: flex-end;
 }
 
 .search-bar button{
-  border-radius: 0px 10px 10px 0px;
-  margin-right: 10px;
-  width: 60px;
-  height: 50px;
-  border: none;
   background-color: #C2B2B4;
   background-image: url("images/search-solid.svg");
-  background-size: 40px 40px;
-  background-repeat: no-repeat;
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  border-radius: 0px 10px 10px 0px;
+  border: none;
+  height: 50px;
+  margin-right: 10px;
+  width: 60px;
 }
 
 .image-upload-section{
@@ -164,10 +162,10 @@ justify-content: flex-end;
 }
 
 .image-upload-section input{
-  width: 700px;
+  display: block;
   height: 60px;
   margin-bottom: 15px;
-  display: block;
+  width: 700px;
 }
 
 .image-input{
@@ -184,21 +182,21 @@ justify-content: flex-end;
   border: none;
   display: block;
   height: 60px
-  margin-top: 50px;
   margin-bottom: 20px;
+  margin-top: 50px;
   padding: 1px;
   text-align: center;
   width: 100%;
 }
 
 .image-upload-section button{
-  width: 700px;
-  height: 60px;
-  border-radius: 0px;
   background-color: #5B4447;
+  border-radius: 0px;
   border: none;
+  height: 60px;
   margin-bottom: 30px;
   margin-top: 30px;
+  width: 700px;
 }
 
 .image-input-label:hover{
@@ -212,11 +210,11 @@ justify-content: flex-end;
 
 #side-by-side-button{
   background-color: #5B4447;
-  margin-top: 15px;
-  margin-bottom: 20px;
   border: none;
-  width: 43%;
   height: 60px;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  width: 43%;
 }
 
 #side-by-side-button:hover{
@@ -224,24 +222,24 @@ justify-content: flex-end;
 }
 
 .image-section-content{
-  place-self: center;
   display: flex;
   flex-direction: column;
+  place-self: center;
 }
 
 .image-card-area{
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
   padding: 20px;
 }
 
 .image-card{
+  border: 2px solid #938284;
   display: grid;
   grid-template-rows: 50px 300px 75px 50px;
-  width: 304px;
-  border: 2px solid #938284;
   margin-top: 20px;
+  width: 304px;
 }
 
 #title-area{
@@ -250,9 +248,9 @@ justify-content: flex-end;
 }
 
 #image-area img{
-  width: 300px;
   height: 300px;
   object-fit: cover;
+  width: 300px;
 }
 
 .image-size{
@@ -268,10 +266,10 @@ justify-content: flex-end;
 #bottom-area{
   background-color: #5B4447;
   display:flex;
-  flex-flow: row;
   flex-direction: row;
-  padding: 5px;
+  flex-flow: row;
   justify-content: space-between;
+  padding: 5px;
 }
 
 #bottom-area img{
@@ -279,6 +277,7 @@ justify-content: flex-end;
   padding-top: 5px;
  
 }
+
 
 /*--------MEDIA QUERIES--------*/
 @media (max-width: 1300px) { 

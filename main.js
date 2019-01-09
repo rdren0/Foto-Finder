@@ -1,7 +1,4 @@
 
-//Dont forget favorite number button is backwards atm ///
-//favorite button is null? //
-
 // ------------Global Var List------------
 var create = document.querySelector('.add-image');
 var input = document.querySelector('#file');
@@ -10,12 +7,14 @@ var searchInput = document.querySelector('.h2-input');
 var addPhotoInputs1 = document.querySelector('.add-photo-inputs1');
 var addPhotoInputs2 = document.querySelector('.add-photo-inputs2');
 var addPhotoInputs3 = document.querySelector('.image-input');
+var favoriteFilter = document.querySelector(".favorite-filter");
 var favoritePhotoButton = document.querySelector('.testing-favorites');
 var bottomofCard = document.querySelector('#bottom-area');
 var cardArea = document.querySelector('.image-card');
+var showMore = document.querySelector('.show-more');
+var showMoreButton = document.querySelector('.show-more-button');
 var imagesArray = JSON.parse(localStorage.getItem('photos')) || [];
 var reader = new FileReader();
-
 
 
 
@@ -27,7 +26,8 @@ addPhotoInputs1.addEventListener('blur',disableCreateButton);
 addPhotoInputs2.addEventListener('blur',disableCreateButton);
 addPhotoInputs3.addEventListener('change',disableCreateButton);
 photoGallery.addEventListener('click', favoriteVoteCheck);
-
+favoriteFilter.addEventListener("click", showFavorite)
+showMore.addEventListener('click', showAll)
 
 
 
@@ -96,7 +96,7 @@ function appendPhotos(newPhoto) {
       </section>
       <section id="bottom-area">
         <img class = "delete-button" onclick="deleteCard(${newPhoto.id})" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
-<section class="favorite-area"><img id="favorite-button" class="testing-button" src="${favoritesvg}"></section>
+<section class="favorite-area"><img class="testing-button" src="${favoritesvg}"></section>
     </article>`;
     photoGallery.insertAdjacentHTML('afterbegin',newCard);
   }
@@ -125,18 +125,17 @@ function searchPhotos (event) {
   })
 }
 
-document.querySelector(".favorite-button").addEventListener("click", showFavorite)
 function showFavorite(e) {
   e.preventDefault()
-  var  favoritecheck = document.querySelectorAll("img")
-  favoritecheck.forEach(function(check){
-    if(check.src === "images/favorite-active.svg"){
-      check.parentElement.style.display = "flex";
+  console.log('this');
+  var  favoriteArea = document.querySelectorAll("img")
+  favoriteArea.forEach(function(image){
+    if(image.src === "images/favorite-active.svg"){
+      image.parentElement.parentElement.style.display = "grid";
     }else {
-      check.parentElement.style.display = "none";
+      image.parentElement.parentElement.style.display = "none";
     }
   })
-
 }
 
 function clearPhotoAddInputs() {
@@ -155,8 +154,7 @@ function updateText(event) {
     index.updatePhoto(event.target.innerText, 'card-caption');
    };
   index.saveToStorage(imagesArray);
-  }
-
+}
 
 function deleteCard (id) {
   var element = document.querySelector(`[data-id="${id}"]`);
@@ -186,17 +184,14 @@ function favoriteVote() {
   if (index.favorite === false) {
     index.favorite = true;
     event.target.src = "images/favorite-active.svg";
-    index.favoriteStatus(true);
+    index.favoriteStatus(true, index);
   }else{
     index.favorite = false;
     event.target.src = "images/favorite.svg";
-    index.favoriteStatus(false);
-
+    index.favoriteStatus(false, index);
   }
   favoritePhotos();
-
 }
-
 
 function favoritePhotos() {
   var favoritePhoto = 0;
@@ -208,7 +203,13 @@ function favoritePhotos() {
   document.querySelector('#favorite-counter').innerText = favoritePhoto;
 }
 
-
+function showAll() {
+  if (showMore.innerText === 'Show More') {
+    showMore.innerText = 'Show Less';
+  } else if (showMore.innerText === 'Show Less') {
+    showMore.innerText = 'Show More';  
+  }
+}
 
 function placeholderText() {
   if (imagesArray.length === 0) {

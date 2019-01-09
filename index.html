@@ -32,7 +32,7 @@
         <label  class= "image-input-label" for="file"><h2>CHOOSE FILE</h2></label>
         <input id="file" class="image-input" type="file" name="images" accept="image/*">
         <article class= "side-by-side-container">
-        <button id="side-by-side-button"><h2>VIEW <span class= "favorite-button" id="favorite-counter">0</span> FAVORITE(S)</h2></button>
+        <button class="favorite-filter" id="side-by-side-button"><h2>VIEW <span class= "favorite-button" id="favorite-counter">0</span> FAVORITE(S)</h2></button>
         <button id="side-by-side-button" class="add-image"><h2>ADD TO ALBUM</h2></button>
         </article>
       </article>
@@ -42,13 +42,17 @@
   </section>
   <section class="bottom-section">
     <article class="image-card-area">
+      <!-- <article class="image-card" id="dummy"></article>
+      <article class="image-card" id="dummy"></article>
+      <br> -->
+      <button class="show-more-button" style= "height:70px; width:150px; color: #FFF;
+      font-size: 20px; background-color: #3E2A35;
+       margin-left: auto; margin-right: auto;">
+        <span class="show-more"><h2>Show More</h2></span> </button>
 
-      <article class="image-card" id="dummy"></article>
-      <article class="image-card" id="dummy"></article>
     </article>
 
   </section> 
-  <button>SHOW MORE</button>
   
 </body>
 <script src='photo.js'></script>
