@@ -33,38 +33,41 @@ var reader = new FileReader();
 create.addEventListener('click', createElement);
 searchInput.addEventListener('keyup', searchPhotos);
 photoGallery.addEventListener('focusin', wheresTheCursor);
-// addPhotoInputs1.addEventListener('keyup',disableCreateButton);
-// addPhotoInputs2.addEventListener('keyup',disableCreateButton);
-// addPhotoInputs3.addEventListener('change',disableCreateButton);
-// favoriteButton.addEventListener('click', changeFavoriteImage);
+addPhotoInputs1.addEventListener('blur',disableCreateButton);
+addPhotoInputs2.addEventListener('blur',disableCreateButton);
+addPhotoInputs3.addEventListener('change',disableCreateButton);
 
 
 // ------------Functions------------
 window.onload = function() {
   var keys = Object.keys(localStorage);
+
   for (var i = 0; i < keys.length; i++) {
     var parseObj = JSON.parse(localStorage.getItem(keys[i]));
     var newPhoto= new Photo(parseObj.id, parseObj.title, parseObj.file, parseObj.caption);
     imagesArray.push(newPhoto);
+
     newPhoto.saveToStorage();
     appendPhotos(newPhoto);
     favoritePhotos();
+    
   }
 }
-
-// function disableCreateButton(){
-//   if(addPhotoInputs1.value.length >0 && addPhotoInputs2.value.length >0 && addPhotoInputs3.files.length ===1){
-//   create.disabled=false;
-//   }else{
-//     create.disabled=true;
-//   }
-// }
+function disableCreateButton(){
+  if(addPhotoInputs1.value.length >0 && addPhotoInputs2.value.length >0 && addPhotoInputs3.files.length ===1){
+  create.disabled=false;
+  }else{
+    create.disabled=true;
+  }
+}
 
 function createElement(event) {
   event.preventDefault();
   if (input.files[0]) {
     reader.readAsDataURL(input.files[0]); 
     reader.onload = createCard;
+
+
   }
 }
 
@@ -76,6 +79,7 @@ function createCard(e) {
   imagesArray.push(newPhoto);
   newPhoto.saveToStorage();
   appendPhotos(newPhoto);
+  clearPhotoAddInputs();
 }
 
 function appendPhotos(newPhoto) {
@@ -96,7 +100,7 @@ function appendPhotos(newPhoto) {
       </section>
     </article>`;
     photoGallery.insertAdjacentHTML('afterbegin',newCard);
-    clearPhotoAddInputs();
+
   }
 
 function wheresTheCursor(event){
@@ -105,6 +109,11 @@ function wheresTheCursor(event){
     event.target.onblur = function(event){
       updateText(event);
     }
+    // event.target.keydown = function(event){
+    //   if (e.keyCode === 13){
+    //     updatePhoto(event)
+    //   }
+    // }
   }
 }
 
@@ -140,6 +149,17 @@ function updateText(event) {
   index.saveToStorage(imagesArray);
   }
 
+  // function updatePhotoContent(event){
+  //   var number = event.target.closest('.image-card').dataset.id;
+  //   var index = imagesArray.find(function(image){
+  //   return parseInt(number) === image.id;
+  // });
+  //   if (event.target.classList.contains('image-size')) {
+  //   index.updatePhoto(event.target.innerText, 'image-size');
+  // }
+
+  
+
 
 function deleteCard (id) {
   var element = document.querySelector(`[data-id="${id}"]`);
@@ -151,14 +171,14 @@ function deleteCard (id) {
   var deleteIndex = imagesArray.findIndex(function(newPhoto) {
     return id === newPhoto.id;
   });
-  imagesArray.splice(deleteIndex, 1)
+  imagesArray.splice(deleteIndex, 1);
 }
 
 
 function favoritePhotos() {
   var favoritePhoto = 0;
   imagesArray.forEach(function(photo) {
-    if (photo.favorite === 0) {
+    if (photo.favorite === 1) {
       favoritePhoto++
     };
   });
@@ -166,16 +186,24 @@ function favoritePhotos() {
 }
 
 function favoriteStatus(currentPhoto) {
-  console.log(currentPhoto);
   var currentPhotoId = imagesArray.filter(function(image){
     return image.id === currentPhoto;
   }) 
   var curPhoto = currentPhotoId[0]
   var newPhoto = new Photo(curPhoto.id, curPhoto.title, curPhoto.file, curPhoto.caption, curPhoto.favorite );
   newPhoto.favoriteStatus(curPhoto.favorite);
-  newPhoto.saveToStorage();
 }
 
+
+function placeholderText() {
+  if (imagesArray.length === 0) {
+    photoGallery.insertAdjacentHTML('beforebegin',
+      '<h4 class="no-photo-text">Add photos to start your album!</h3>');
+  }
+}
+
+  // imagesArray[curPhoto].saveToStorage();
+  // curPhoto.splice(curPhoto, 1, imagesArray[currentPhotoId]);
 
 
 // function vote(event, votebutton) {
