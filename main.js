@@ -27,7 +27,7 @@ addPhotoInputs2.addEventListener('blur',disableCreateButton);
 addPhotoInputs3.addEventListener('change',disableCreateButton);
 photoGallery.addEventListener('click', favoriteVoteCheck);
 favoriteFilter.addEventListener("click", showFavorite)
-showMore.addEventListener('click', showAll)
+// showMore.addEventListener('click', showAll)
 
 
 
