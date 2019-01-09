@@ -37,7 +37,7 @@ window.onload = function() {
   var keys = Object.keys(localStorage);
   for (var i = 0; i < keys.length; i++) {
     var parseObj = JSON.parse(localStorage.getItem(keys[i]));
-    var newPhoto= new Photo(parseObj.id, parseObj.title, parseObj.file, parseObj.caption);
+    var newPhoto= new Photo(parseObj.id, parseObj.title, parseObj.file, parseObj.caption, parseObj.favorite);
     imagesArray.push(newPhoto);
     newPhoto.saveToStorage();
     appendPhotos(newPhoto);
@@ -57,7 +57,7 @@ function disableCreateButton(){
 }
 
 function createElement(event) {
-  event.preventDefault();
+  // event.preventDefault();
   if (input.files[0]) {
     reader.readAsDataURL(input.files[0]); 
     reader.onload = createCard;
@@ -68,7 +68,8 @@ function createCard(e) {
   e.preventDefault();
   var titleInput = document.querySelector('#title');
   var bodyInput = document.querySelector('#caption');
-  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value);
+  var defaultFav = false;
+  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value, defaultFav);
   imagesArray.push(newPhoto);
   newPhoto.saveToStorage();
   appendPhotos(newPhoto);
@@ -177,18 +178,24 @@ if(event.target.classList.contains('testing-button') ){
   }
 
 function favoriteVote() {
+  
   var number = event.target.closest('.image-card').dataset.id;
+
   var index = imagesArray.find(function(image){
-  return parseInt(number) === image.id;  
+    // console.log(image.id)
+    return parseInt(number) == image.id;  
   });
   if (index.favorite === false) {
     index.favorite = true;
     event.target.src = "images/favorite-active.svg";
     index.favoriteStatus(true, index);
+    index.saveToStorage(imagesArray);
+
   }else{
     index.favorite = false;
     event.target.src = "images/favorite.svg";
     index.favoriteStatus(false, index);
+    index.saveToStorage(imagesArray);
   }
   favoritePhotos();
 }
