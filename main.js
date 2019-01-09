@@ -68,7 +68,8 @@ function createCard(e) {
   e.preventDefault();
   var titleInput = document.querySelector('#title');
   var bodyInput = document.querySelector('#caption');
-  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value);
+  var defaultFav = false;
+  var newPhoto = new Photo(Date.now(), titleInput.value, e.target.result, bodyInput.value, defaultFav);
   imagesArray.push(newPhoto);
   newPhoto.saveToStorage();
   appendPhotos(newPhoto);
