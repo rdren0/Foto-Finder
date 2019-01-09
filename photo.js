@@ -24,26 +24,10 @@ class Photo{
     }
   }
 
-  favoriteStatus(value){
+  favoriteStatus(value, index){
     this.favorite = value;
-    this.saveToStorage(imagesArray);
+    localStorage.setItem(this.id, JSON.stringify(this));
+
   }
 }
 
-
-// document.querySelector(".favorite-button").addEventListener("click", showFavorite)
-// function showFavorite(e) {
-//   e.preventDefault()
-//   console.log("its passing the first")
-//   var  favoritecheck = document.querySelectorAll("img")
-//   favoritecheck.forEach(function(check){
-//     if(check.src === "icons/favorite-active.svg"){
-//       console.log("this is true")
-//       check.parentElement.style.display = "grid";
-//     }else {
-//       console.log("this is false")
-//       check.parentElement.style.display = "none";
-//     }
-//   })
-
-// }
