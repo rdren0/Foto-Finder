@@ -22,9 +22,9 @@ var reader = new FileReader();
 create.addEventListener('click', createElement);
 searchInput.addEventListener('keyup', searchPhotos);
 photoGallery.addEventListener('focusin', wheresTheCursor);
-addPhotoInputs1.addEventListener('blur',disableCreateButton);
-addPhotoInputs2.addEventListener('blur',disableCreateButton);
-addPhotoInputs3.addEventListener('change',disableCreateButton);
+addPhotoInputs1.addEventListener('blur', disableCreateButton);
+addPhotoInputs2.addEventListener('blur', disableCreateButton);
+addPhotoInputs3.addEventListener('change', disableCreateButton);
 photoGallery.addEventListener('click', favoriteVoteCheck);
 favoriteFilter.addEventListener("click", showFavorite)
 // showMore.addEventListener('click', showAll)
@@ -33,31 +33,30 @@ favoriteFilter.addEventListener("click", showFavorite)
 
 // ------------Functions------------
 window.onload = function() {
-  if(localStorage.length !=0){
-  var keys = Object.keys(localStorage);
-  for (var i = 0; i < keys.length; i++) {
-    var parseObj = JSON.parse(localStorage.getItem(keys[i]));
-    var newPhoto= new Photo(parseObj.id, parseObj.title, parseObj.file, parseObj.caption, parseObj.favorite);
-    imagesArray.push(newPhoto);
-    newPhoto.saveToStorage();
-    appendPhotos(newPhoto);
-    favoritePhotos();
+  if (localStorage.length != 0) {
+    var keys = Object.keys(localStorage);
+    for (var i = 0; i < keys.length; i++) {
+      var parseObj = JSON.parse(localStorage.getItem(keys[i]));
+      var newPhoto = new Photo(parseObj.id, parseObj.title, parseObj.file, parseObj.caption, parseObj.favorite);
+      imagesArray.push(newPhoto);
+      newPhoto.saveToStorage();
+      appendPhotos(newPhoto);
+      favoritePhotos();
     }  
-  }else{
-      placeholderText();
-    }
+  } else {
+    placeholderText();
+  }
 }
 
-function disableCreateButton(){
-  if(addPhotoInputs1.value.length >0 && addPhotoInputs2.value.length >0 && addPhotoInputs3.files.length ===1){
-  create.disabled=false;
-  }else{
-    create.disabled=true;
+function disableCreateButton() {
+  if (addPhotoInputs1.value.length > 0 && addPhotoInputs2.value.length > 0 && addPhotoInputs3.files.length === 1) {
+    create.disabled = false;
+  } else {
+    create.disabled = true;
   }
 }
 
 function createElement(event) {
-  // event.preventDefault();
   if (input.files[0]) {
     reader.readAsDataURL(input.files[0]); 
     reader.onload = createCard;
@@ -78,7 +77,7 @@ function createCard(e) {
 
 function appendPhotos(newPhoto) {
   var favoritesvg;
-  if(newPhoto.favorite === true){
+  if (newPhoto.favorite === true) {
     favoritesvg = "images/favorite-active.svg"
     favoritePhotos();
   } else {
@@ -99,14 +98,14 @@ function appendPhotos(newPhoto) {
         <img class = "delete-button" onclick="deleteCard(${newPhoto.id})" src="images/delete.svg" onmouseover="this.src='images/delete-active.svg'" onmouseout="this.src='images/delete.svg'" width="40px" height="40px">
 <section class="favorite-area"><img class="testing-button" src="${favoritesvg}"></section>
     </article>`;
-    photoGallery.insertAdjacentHTML('afterbegin',newCard);
-  }
+  photoGallery.insertAdjacentHTML('afterbegin', newCard);
+}
 
 
-function wheresTheCursor(event){
-  if(event.target.closest('.image-card') !== null && 
-    !event.target.classList.contains('delete-button') ){
-    event.target.onblur = function(event){
+function wheresTheCursor(event) {
+  if (event.target.closest('.image-card') !== null && 
+    !event.target.classList.contains('delete-button') ) {
+    event.target.onblur = function(event) {
       updateText(event);
     }
   }
@@ -128,12 +127,11 @@ function searchPhotos (event) {
 
 function showFavorite(e) {
   e.preventDefault()
-  console.log('this');
   var  favoriteArea = document.querySelectorAll("img")
-  favoriteArea.forEach(function(image){
-    if(image.src === "images/favorite-active.svg"){
+  favoriteArea.forEach(function(image) {
+    if (image.src === "images/favorite-active.svg") {
       image.parentElement.parentElement.style.display = "grid";
-    }else {
+    } else {
       image.parentElement.parentElement.style.display = "none";
     }
   })
@@ -146,14 +144,14 @@ function clearPhotoAddInputs() {
 
 function updateText(event) {
   var number = event.target.closest('.image-card').dataset.id;
-  var index = imagesArray.find(function(image){
+  var index = imagesArray.find(function(image) {
     return parseInt(number) === image.id;
   });
   if (event.target.classList.contains('card-title')) {
     index.updatePhoto(event.target.innerText, 'card-title');
-  }else {
+  } else {
     index.updatePhoto(event.target.innerText, 'card-caption');
-   };
+  }
   index.saveToStorage(imagesArray);
 }
 
@@ -171,18 +169,17 @@ function deleteCard (id) {
   placeholderText()
 }
 
-function favoriteVoteCheck(){
-if(event.target.classList.contains('testing-button') ){
+function favoriteVoteCheck() {
+  if (event.target.classList.contains('testing-button') ) {
     favoriteVote()
-    }
   }
+}
 
 function favoriteVote() {
   
   var number = event.target.closest('.image-card').dataset.id;
 
-  var index = imagesArray.find(function(image){
-    // console.log(image.id)
+  var index = imagesArray.find(function(image) {
     return parseInt(number) == image.id;  
   });
   if (index.favorite === false) {
@@ -191,7 +188,7 @@ function favoriteVote() {
     index.favoriteStatus(true, index);
     index.saveToStorage(imagesArray);
 
-  }else{
+  } else {
     index.favorite = false;
     event.target.src = "images/favorite.svg";
     index.favoriteStatus(false, index);
@@ -205,7 +202,7 @@ function favoritePhotos() {
   imagesArray.forEach(function(photo) {
     if (photo.favorite === true) {
       favoritePhoto++
-    };
+    }
   });
   document.querySelector('#favorite-counter').innerText = favoritePhoto;
 }
